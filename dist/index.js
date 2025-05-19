@@ -4,7 +4,7 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var dotenv = require('dotenv');
-var paymentRoutes = require('../routes/paymentRoutes');
+var paymentRoutes = require('./routes/paymentRoutes');
 dotenv.config();
 var app = express();
 // const port = 3000;
