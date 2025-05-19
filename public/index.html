@@ -1,0 +1,80 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Multiple Payment Options</title>
+</head>
+<body>
+  <h1>Select Payment Method</h1>
+  <button id="gateway-btn">Pay via Razorpay Checkout</button>
+  <button id="qr-btn">Pay via QR Code</button>
+  <!-- <button id="upi-btn">Pay via UPI App</button> -->
+
+  <div id="qr-container" style="margin-top: 20px;"></div>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <script>
+    const amount = 5000; // ₹50 in paise
+
+    // Razorpay Checkout
+    document.getElementById('gateway-btn').onclick = function () {
+      fetch('/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount })
+      })
+      .then(res => res.json())
+      .then(data => {
+        const options = {
+          key: "rzp_test_GggdMFeHqgW9yN",
+          amount: data.amount,
+          currency: "INR",
+          name: "SAS Automation",
+          description: "Razorpay Checkout",
+          order_id: data.id,
+          handler: function (response) {
+            fetch('/payment-success', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(response)
+            })
+            .then(res => res.json())
+            .then(data => alert(data.message));
+          },
+          prefill: {
+            name: "Customer",
+            email: "customer@example.com",
+            contact: "9876543210"
+          },
+          theme: { color: "#3399cc" }
+        };
+        new Razorpay(options).open();
+      });
+    };
+
+    // QR Code Payment
+    document.getElementById('qr-btn').onclick = function () {
+      fetch('/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount })
+      })
+      .then(res => res.json())
+      .then(data => {
+        const img = document.createElement('img');
+        img.src = data.qr_code_url;
+        img.alt = 'QR Code';
+        img.style = 'width: 250px; display: block; margin-top: 20px;';
+        
+        const container = document.getElementById('qr-container');
+        container.innerHTML = '';
+        container.appendChild(img);
+      });
+    };
+
+  </script>
+</body>
+</html>
+ -->
