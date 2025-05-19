@@ -7,7 +7,8 @@ const paymentRoutes = require('../routes/paymentRoutes');
 dotenv.config();
 
 const app = express();
-const port = 3000;
+// const port = 3000;
+const port = 8080;
 
 // Serve frontend files
 app.use(express.static(path.join(__dirname, 'public')));
